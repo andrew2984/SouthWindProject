@@ -51,11 +51,25 @@ class Program
         string postalCode = Console.ReadLine();
         Console.WriteLine("Country?");
         string country = Console.ReadLine();
+        Console.WriteLine("Please list the Order IDs separated by a space");
+        string ordersString = Console.ReadLine();
+
+        var ordersSplit = ordersString.Split(" ");
+        var orders = new List<Order>();
+        foreach(var item in ordersSplit)
+        {
+            if (int.TryParse(item, out int orderId) && db.Orders.Select(o => o.OrderId).Contains(orderId))
+            {
+                orders.Append(db.Orders.Where(o => o.OrderId == orderId).First());
+            }
+        }
+
         var customer = db.Customers.Where(o => o.CustomerId == customerId).First();
         customer.ContactName = contactName;
         customer.City = city;
         customer.PostalCode = postalCode;
         customer.Country = country;
+        customer.Orders = orders;
     }
 
     public void CreateCustomer()
