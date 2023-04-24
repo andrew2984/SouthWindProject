@@ -9,7 +9,15 @@ namespace SouthWindProject
     public static class CustomerManager
     {
         private static SouthwindContext db = new SouthwindContext();
-
+        public static void DeleteEntry(string customerId)
+        {
+            using (db)
+            {
+                var customer = db.Customers.Find(customerId);
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+            }
+        }
         public static List<Customer> ReturnListOfCustomers()
         {
             using(db)
@@ -20,6 +28,5 @@ namespace SouthWindProject
 
            
         }
-        
     }
 }
