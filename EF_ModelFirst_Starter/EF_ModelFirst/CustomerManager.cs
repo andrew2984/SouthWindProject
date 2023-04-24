@@ -9,6 +9,18 @@ namespace SouthWindProject
     public static class CustomerManager
     {
         private static SouthwindContext db = new SouthwindContext();
+
+        public static void CreateCustomer(Customer newCustomer)
+        {
+            using (db)
+            {
+                db.Customers.Add(newCustomer);
+                db.SaveChanges();
+            }
+            
+        }
+        
+
         public static void DeleteEntry(string customerId)
         {
             using (db)
@@ -28,5 +40,6 @@ namespace SouthWindProject
 
            
         }
+
     }
 }

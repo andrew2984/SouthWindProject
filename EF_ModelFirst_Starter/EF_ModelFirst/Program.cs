@@ -11,7 +11,10 @@ class Program
     {
         using (var db = new SouthwindContext())
         {
-            Seed(db);
+            //Seed(db);
+            //Customer c = new Customer() { ContactName = "Andrew Ma", City = "Liverpool", PostalCode = "PP0 7AD", Country = "UK", CustomerId = "ANDRM" };
+            //CustomerManager.CreateCustomer(c);
+
         }
     }
 
@@ -53,5 +56,22 @@ class Program
         customer.City = city;
         customer.PostalCode = postalCode;
         customer.Country = country;
+    }
+
+    public void CreateCustomer()
+    {
+        Console.WriteLine("Enter Contact Name: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Enter City: ");
+        string city = Console.ReadLine();
+        Console.WriteLine("Enter PostalCode: ");
+        string postalCode = Console.ReadLine();
+        Console.WriteLine("Enter Country: ");
+        string country = Console.ReadLine();
+
+        var names = name.Split(' ');
+        string id = "";
+        if (names)
+
     }
 }
