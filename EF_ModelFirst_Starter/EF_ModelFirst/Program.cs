@@ -36,13 +36,22 @@ class Program
         db.SaveChanges();
     }
 
-    static void Update(SouthwindContext db, string customerId, string contactName, string city, string postalCode, string country, ICollection<Order> order)
+    static void Update(SouthwindContext db)
     {
+        Console.WriteLine("CustomerID of Customer to update?");
+        string customerId = Console.ReadLine();
+        Console.WriteLine("Name?");
+        string contactName = Console.ReadLine();
+        Console.WriteLine("City?");
+        string city = Console.ReadLine();
+        Console.WriteLine("Postal Code?");
+        string postalCode = Console.ReadLine();
+        Console.WriteLine("Country?");
+        string country = Console.ReadLine();
         var customer = db.Customers.Where(o => o.CustomerId == customerId).First();
         customer.ContactName = contactName;
         customer.City = city;
         customer.PostalCode = postalCode;
         customer.Country = country;
-        customer.Orders = order;
     }
 }
