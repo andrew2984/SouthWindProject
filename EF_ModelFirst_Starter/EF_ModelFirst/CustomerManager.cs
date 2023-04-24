@@ -9,5 +9,17 @@ namespace SouthWindProject
     public static class CustomerManager
     {
         private static SouthwindContext db = new SouthwindContext();
+
+        public static List<Customer> ReturnListOfCustomers()
+        {
+            using(db)
+            {
+                return db.Customers.ToList();
+                
+            }
+
+           
+        }
+        
     }
 }
