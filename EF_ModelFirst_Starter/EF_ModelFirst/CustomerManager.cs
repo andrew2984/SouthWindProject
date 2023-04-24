@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,5 +42,14 @@ namespace SouthWindProject
            
         }
 
+        public static void Update(ValueTuple<string, string, string, string, string, List<Order>> tuple)
+        {
+            var customer = db.Customers.Where(o => o.CustomerId == tuple.Item1).First();
+            customer.ContactName = tuple.Item2;
+            customer.City = tuple.Item3;
+            customer.PostalCode = tuple.Item4;
+            customer.Country = tuple.Item5;
+            customer.Orders = tuple.Item6;
+        }
     }
 }

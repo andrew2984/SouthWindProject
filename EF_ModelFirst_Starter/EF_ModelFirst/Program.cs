@@ -39,10 +39,15 @@ class Program
         db.SaveChanges();
     }
 
-    static void Update(SouthwindContext db)
+    static void UpdateInput(SouthwindContext db)
     {
         Console.WriteLine("CustomerID of Customer to update?");
         string customerId = Console.ReadLine();
+        while (!db.Customers.Select(c => c.CustomerId).Contains(customerId))
+        {
+            Console.WriteLine("Invalid ID");
+            customerId = Console.ReadLine();
+        }
         Console.WriteLine("Name?");
         string contactName = Console.ReadLine();
         Console.WriteLine("City?");
@@ -51,7 +56,7 @@ class Program
         string postalCode = Console.ReadLine();
         Console.WriteLine("Country?");
         string country = Console.ReadLine();
-        Console.WriteLine("Please list the Order IDs separated by a space");
+        Console.WriteLine("Please list the Order IDs separated by a space.");
         string ordersString = Console.ReadLine();
 
         var ordersSplit = ordersString.Split(" ");
@@ -63,13 +68,7 @@ class Program
                 orders.Append(db.Orders.Where(o => o.OrderId == orderId).First());
             }
         }
-
-        var customer = db.Customers.Where(o => o.CustomerId == customerId).First();
-        customer.ContactName = contactName;
-        customer.City = city;
-        customer.PostalCode = postalCode;
-        customer.Country = country;
-        customer.Orders = orders;
+        CustomerManager.Update((customerId, contactName, city, postalCode, country, orders));
     }
 
     public void CreateCustomer()
