@@ -10,13 +10,16 @@ class Program
     {
         using (var db = new SouthwindContext())
         {
-            Seed(db);
+            //Seed(db);
+            //Customer c = new Customer() { ContactName = "Andrew Ma", City = "Liverpool", PostalCode = "PP0 7AD", Country = "UK", CustomerId = "ANDRM" };
+            //CustomerManager.CreateCustomer(c);
+
         }
     }
 
     static void Seed(SouthwindContext db)
     {
-/*        db.Customers.Add(new Customer() { ContactName = "Jacob Banyard", City = "Northampton", PostalCode = "AB1 3ED", Country = "UK", CustomerId = "JACOB" });
+        db.Customers.Add(new Customer() { ContactName = "Jacob Banyard", City = "Northampton", PostalCode = "AB1 3ED", Country = "UK", CustomerId = "JACOB" });
         db.Customers.Add(new Customer() { ContactName = "Ahmed Bader", City = "London", PostalCode = "LC1 5JY", Country = "UK", CustomerId = "AHMEB" });
         db.Customers.Add(new Customer() { ContactName = "Talal Hassan", City = "London", PostalCode = "LU1 2XD", Country = "UK", CustomerId = "TALAH" });
 
@@ -26,12 +29,29 @@ class Program
         db.Orders.Add(new Order() { ShipCountry = "UK", ShippedDate = new DateTime(2020, 4, 5), OrderDate = new DateTime(2020, 4, 1), CustomerId = "TALAH" });
         db.Orders.Add(new Order() { ShipCountry = "CHINA", ShippedDate = new DateTime(2023, 2, 3), OrderDate = new DateTime(2023, 1, 19), CustomerId = "AHMEB" });
 
-        db.SaveChanges();*/
+        db.SaveChanges();
 
         db.OrderDetails.Add(new OrderDetail() { OrderId = db.Orders.Where(e=>e.CustomerId == "JACOB").First().OrderId, Discount = 0.05f,Quantity = 10,UnitPrice = 2.00m });
         db.OrderDetails.Add(new OrderDetail() { OrderId = db.Orders.Where(e=>e.CustomerId == "TALAH").First().OrderId, Discount = 0.15f,Quantity = 100,UnitPrice = 14.00m });
         db.OrderDetails.Add(new OrderDetail() { OrderId = db.Orders.Where(e => e.CustomerId == "AHMEB").First().OrderId, Discount = 0.05f,Quantity = 7,UnitPrice = 11.21m });
 
         db.SaveChanges();
+    }
+
+    public void CreateCustomer()
+    {
+        Console.WriteLine("Enter Contact Name: ");
+        string name = Console.ReadLine();
+        Console.WriteLine("Enter City: ");
+        string city = Console.ReadLine();
+        Console.WriteLine("Enter PostalCode: ");
+        string postalCode = Console.ReadLine();
+        Console.WriteLine("Enter Country: ");
+        string country = Console.ReadLine();
+
+        var names = name.Split(' ');
+        string id = "";
+        if (names)
+
     }
 }
