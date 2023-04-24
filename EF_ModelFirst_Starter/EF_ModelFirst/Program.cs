@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SouthWindProject;
@@ -16,7 +17,7 @@ class Program
 
     static void Seed(SouthwindContext db)
     {
-/*        db.Customers.Add(new Customer() { ContactName = "Jacob Banyard", City = "Northampton", PostalCode = "AB1 3ED", Country = "UK", CustomerId = "JACOB" });
+        db.Customers.Add(new Customer() { ContactName = "Jacob Banyard", City = "Northampton", PostalCode = "AB1 3ED", Country = "UK", CustomerId = "JACOB" });
         db.Customers.Add(new Customer() { ContactName = "Ahmed Bader", City = "London", PostalCode = "LC1 5JY", Country = "UK", CustomerId = "AHMEB" });
         db.Customers.Add(new Customer() { ContactName = "Talal Hassan", City = "London", PostalCode = "LU1 2XD", Country = "UK", CustomerId = "TALAH" });
 
@@ -26,12 +27,22 @@ class Program
         db.Orders.Add(new Order() { ShipCountry = "UK", ShippedDate = new DateTime(2020, 4, 5), OrderDate = new DateTime(2020, 4, 1), CustomerId = "TALAH" });
         db.Orders.Add(new Order() { ShipCountry = "CHINA", ShippedDate = new DateTime(2023, 2, 3), OrderDate = new DateTime(2023, 1, 19), CustomerId = "AHMEB" });
 
-        db.SaveChanges();*/
+        db.SaveChanges();
 
         db.OrderDetails.Add(new OrderDetail() { OrderId = db.Orders.Where(e=>e.CustomerId == "JACOB").First().OrderId, Discount = 0.05f,Quantity = 10,UnitPrice = 2.00m });
         db.OrderDetails.Add(new OrderDetail() { OrderId = db.Orders.Where(e=>e.CustomerId == "TALAH").First().OrderId, Discount = 0.15f,Quantity = 100,UnitPrice = 14.00m });
         db.OrderDetails.Add(new OrderDetail() { OrderId = db.Orders.Where(e => e.CustomerId == "AHMEB").First().OrderId, Discount = 0.05f,Quantity = 7,UnitPrice = 11.21m });
 
         db.SaveChanges();
+    }
+
+    static void Update(SouthwindContext db, string customerId, string contactName, string city, string postalCode, string country, ICollection<Order> order)
+    {
+        var customer = db.Customers.Where(o => o.CustomerId == customerId).First();
+        customer.ContactName = contactName;
+        customer.City = city;
+        customer.PostalCode = postalCode;
+        customer.Country = country;
+        customer.Orders = order;
     }
 }
