@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EF_ModelFirst
+namespace SouthWindProject
 {
     public partial class OrderDetail
     {
