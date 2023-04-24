@@ -20,5 +20,26 @@ namespace SouthWindProject
             
         }
         
+
+        public static void DeleteEntry(string customerId)
+        {
+            using (db)
+            {
+                var customer = db.Customers.Find(customerId);
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+            }
+        }
+        public static List<Customer> ReturnListOfCustomers()
+        {
+            using(db)
+            {
+                return db.Customers.ToList();
+                
+            }
+
+           
+        }
+
     }
 }
