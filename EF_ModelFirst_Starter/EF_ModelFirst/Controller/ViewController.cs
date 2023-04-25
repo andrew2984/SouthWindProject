@@ -1,4 +1,6 @@
 ﻿using SouthWindProject.Model;
+using SouthWindProject.Model;
+using SouthWindProject.View;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
@@ -28,7 +30,7 @@ public class ViewController
                 switch (intInput)
                 {
                     case 1:
-                        View.View.CreateCustomer();
+                        CreateCustomer();
                         break;
                     case 2:
                         ReadCustomers();
@@ -60,11 +62,42 @@ public class ViewController
                 orders.Append(db.Orders.Where(o => o.OrderId == orderId).First());
             }
         }
-        CustomerManager.Update((tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, orders));
+        CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders});
     }
 
     public static void ReadCustomers()
     {
         var list = CustomerManager.ReturnListOfCustomers();
+    }
+
+    public static void CreateCustomer()
+    {
+        var details = new View.View().AskForCustomerInfo();
+        var names = details.name.Split(' ');
+
+        string id = GenerateID(names);
+
+        var newCustomer = new Customer() { ContactName = details.name, City = details.city, PostalCode = details.postalCode, Country = details.country, CustomerId = id };
+        CustomerManager.CreateCustomer(newCustomer);
+    }
+
+    private static string GenerateID(string[] names)
+    {
+        string id = "";
+        if (names[0].Length < 5)
+        {
+            if (names.Length == 1 || names[0].Length < 4)
+            {
+                id = names[0];
+                for (int i = names[0].Length; i < 5; i++)
+                {
+                    id += (char)new Random().Next(65, 122);
+                }
+            }
+
+        }
+        else id = names[0].Substring(0, 4) + names[1][0];
+
+        return id.ToUpper();
     }
 }

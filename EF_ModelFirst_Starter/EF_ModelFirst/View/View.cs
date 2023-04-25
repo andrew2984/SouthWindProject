@@ -44,7 +44,7 @@ public class View
         ViewController.UpdateLogic(db, (customerId, contactName, city, postalCode, country, ordersString));
     }
 
-    public void CreateCustomer()
+    public (string name, string city, string postalCode, string country) AskForCustomerInfo()
     {
         Console.WriteLine("Enter Contact Name: ");
         string name = Console.ReadLine();
@@ -53,29 +53,8 @@ public class View
         Console.WriteLine("Enter PostalCode: ");
         string postalCode = Console.ReadLine();
         Console.WriteLine("Enter Country: ");
-        string country = Console.ReadLine();
-
-        var names = name.Split(' ');
-        string id = "";
-
-        if (names[0].Length < 5)
-        {
-            if (names.Length == 1 || names[0].Length < 4)
-            {
-                id = names[0];
-                for (int i = names[0].Length; i < 5; i++)
-                {
-                    id += 'A';
-                }
-            }
-
-        }
-        else id = names[0].Substring(0, 4) + names[1][0];
-
-        id = id.ToUpper();
-        var newCustomer = new Customer() { ContactName = name, City = city, PostalCode = postalCode, Country = country, CustomerId = id };
-        CustomerManager.CreateCustomer(newCustomer);
-
+        string country = Console.ReadLine(); 
+        return (name, city, postalCode, country);  
     }
 
     public static void Line()
@@ -105,11 +84,19 @@ public class View
     {
         foreach (var item in list)
         {
+            Line();
             Console.WriteLine($"ID: {item.CustomerId}\n   Name: {item.ContactName}\n   Address: {item.City} {item.PostalCode} {item.Country}\n   Orders:");
             foreach (var item2 in item.Orders)
             {
                 Console.WriteLine($"      {item2.OrderId}");
             }
+
         }
+        Line();
+    }
+
+    public static void Goodbye()
+    {
+        Console.WriteLine("Thanks for using me!\nGoodbye!");
     }
 }
