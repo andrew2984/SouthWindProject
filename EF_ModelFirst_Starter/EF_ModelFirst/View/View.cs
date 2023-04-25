@@ -3,10 +3,6 @@ using SouthWindProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SouthWindProject.Controller;
-using SouthWindProject.Model;
 
 namespace SouthWindProject.View;
 
@@ -57,6 +53,7 @@ public class View
 
         var names = name.Split(' ');
         string id = "";
+
         if (names[0].Length < 5)
         {
             if (names.Length == 1 || names[0].Length < 4)
