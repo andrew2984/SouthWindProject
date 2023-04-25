@@ -1,5 +1,4 @@
 ﻿using SouthWindProject.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,16 +39,19 @@ namespace SouthWindProject.Controller
 
         }
 
-        public static void Update(ValueTuple<string, string, string, string, string, List<Order>> tuple)
+        public static void Update(Customer updatedCustomerInfo)
         {
-            var customer = db.Customers.Where(o => o.CustomerId == tuple.Item1).First();
-            customer.ContactName = tuple.Item2;
-            customer.City = tuple.Item3;
-            customer.PostalCode = tuple.Item4;
-            customer.Country = tuple.Item5;
-            customer.Orders = tuple.Item6;
-            db.Customers.Update(customer);
-            db.SaveChanges();
+            using (db)
+            {
+                var oldInfo = db.Customers.Single(e => e.CustomerId == updatedCustomerInfo.CustomerId);
+                oldInfo.City = updatedCustomerInfo.City;
+                oldInfo.ContactName = updatedCustomerInfo.ContactName;
+                oldInfo.Country = updatedCustomerInfo.Country;
+                oldInfo.PostalCode = updatedCustomerInfo.PostalCode;
+                oldInfo.Orders = updatedCustomerInfo.Orders;
+                db.SaveChanges();
+            }
+
         }
 
 
