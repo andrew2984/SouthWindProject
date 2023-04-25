@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SouthWindProject", "EF_ModelFirst\SouthWindProject.csproj", "{015E0723-56A7-4A8F-9E81-D2E879AEB715}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SouthWindTests", "SouthWindTests\SouthWindTests.csproj", "{6C8F0254-F046-4166-A4A5-D0D6CA14FB30}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{015E0723-56A7-4A8F-9E81-D2E879AEB715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{015E0723-56A7-4A8F-9E81-D2E879AEB715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{015E0723-56A7-4A8F-9E81-D2E879AEB715}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C8F0254-F046-4166-A4A5-D0D6CA14FB30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8F0254-F046-4166-A4A5-D0D6CA14FB30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8F0254-F046-4166-A4A5-D0D6CA14FB30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8F0254-F046-4166-A4A5-D0D6CA14FB30}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
