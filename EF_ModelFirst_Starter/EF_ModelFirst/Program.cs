@@ -14,7 +14,8 @@ class Program
             //Seed(db);
             //Customer c = new Customer() { ContactName = "Andrew Ma", City = "Liverpool", PostalCode = "PP0 7AD", Country = "UK", CustomerId = "ANDRM" };
             //CustomerManager.CreateCustomer(c);
-
+            CreateCustomer();
+            //CustomerManager.DeleteEntry("BOBAAA");
         }
     }
 
@@ -71,7 +72,7 @@ class Program
         CustomerManager.Update((customerId, contactName, city, postalCode, country, orders));
     }
 
-    public void CreateCustomer()
+    public static void CreateCustomer()
     {
         Console.WriteLine("Enter Contact Name: ");
         string name = Console.ReadLine();
@@ -84,7 +85,23 @@ class Program
 
         var names = name.Split(' ');
         string id = "";
-        if (names)
+        if (names[0].Length < 5)
+        {
+            if (names.Length == 1 || names[0].Length < 4) 
+            {
+                id = names[0];
+                for (int i = names[0].Length; i < 5; i++)
+                {
+                    id += 'A';
+                }
+            }
+
+        }
+        else id = names[0].Substring(0, 4) + names[1][0];
+
+        id = id.ToUpper();
+        var newCustomer = new Customer() { ContactName = name, City = city, PostalCode = postalCode, Country = country, CustomerId = id };
+        CustomerManager.CreateCustomer(newCustomer);
 
     }
 }
