@@ -27,12 +27,12 @@ namespace SouthWindTests
         {
             using (SouthwindContext db = new SouthwindContext())
             {
-                var testCust = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTS" };
+                var testCust = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTG" };
                 db.Customers.Add(testCust);
                 db.SaveChanges();
-                var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTS" };
+                var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTG" };
                 CustomerManager.Update(testCustUpdate);
-                var actualResult = db.Customers.Where(e => e.CustomerId == testCust.CustomerId).First().ContactName;
+                var actualResult = db.Customers.Where(e => e.CustomerId == "TTTTP").First().ContactName;
                 var expectedResult = "Test subject UPDATE";
                 Assert.That(expectedResult,Is.EqualTo(actualResult));
                 

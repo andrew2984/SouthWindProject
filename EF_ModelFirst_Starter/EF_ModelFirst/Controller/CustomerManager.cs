@@ -42,9 +42,12 @@ namespace SouthWindProject.Controller
 
         public static void Update(Customer updatedCustomerInfo)
         {
-            var oldCustomerInfo = db.Customers.Where(o => o.CustomerId == updatedCustomerInfo.CustomerId).First();
-            oldCustomerInfo = updatedCustomerInfo;
-            db.Customers.Update(oldCustomerInfo);
+            var oldInfo = db.Customers.Single(e => e.CustomerId == updatedCustomerInfo.CustomerId);
+            oldInfo.City = updatedCustomerInfo.City;
+            oldInfo.ContactName = updatedCustomerInfo.ContactName;
+            oldInfo.Country = updatedCustomerInfo.Country;
+            oldInfo.PostalCode = updatedCustomerInfo.PostalCode;
+            oldInfo.Orders = updatedCustomerInfo.Orders;
             db.SaveChanges();
         }
 
