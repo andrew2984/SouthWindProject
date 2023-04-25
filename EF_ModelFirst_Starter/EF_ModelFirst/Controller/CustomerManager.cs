@@ -41,13 +41,14 @@ namespace SouthWindProject.Controller
         {
             using (SouthwindContext db = new SouthwindContext())
             {
-                var customer = db.Customers.Where(o => o.CustomerId == customerId).First();
-                customer.ContactName = customerName;
-                customer.City = city;
-                customer.PostalCode = postCode;
-                customer.Country = country;
-                customer.Orders = orders;
-                db.Customers.Update(customer);
+
+                var upCustomer = db.Customers.Where(o => o.CustomerId == customer.CustomerId).First();
+                upCustomer.City = customer.City;
+                upCustomer.ContactName = customer.ContactName;
+                upCustomer.Country = customer.Country;
+                upCustomer.PostalCode = customer.PostalCode;
+                upCustomer.Orders = customer.Orders;
+                db.Customers.Update(upCustomer);
                 db.SaveChanges();
             }
         }
