@@ -1,10 +1,11 @@
+using SouthWindProject.Controller;
 using SouthWindProject.Model;
 
 namespace SouthWindTests
 {
     public class Tests
     {
-
+        [Ignore("")]
         [Test]
         public void ReturnListOfCustomersCorrectly()
         {
@@ -21,9 +22,22 @@ namespace SouthWindTests
 
         }
 
+        [Test]
         public void WhenCustomerUpdated_ThenCustomerUpdated_ReturnNewChanges()
         {
-            var testCust = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "UK", CustomerId = "JACOB" }
+            using (SouthwindContext db = new SouthwindContext())
+            {
+                var testCust = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTS" };
+                db.Customers.Add(testCust);
+                db.SaveChanges();
+                var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTS" };
+                CustomerManager.Update(testCustUpdate);
+                var actualResult = db.Customers.Where(e => e.CustomerId == testCust.CustomerId).First().ContactName;
+                var expectedResult = "Test subject UPDATE";
+                Assert.That(expectedResult,Is.EqualTo(actualResult));
+                
+            }
+
         }
     }
 }
