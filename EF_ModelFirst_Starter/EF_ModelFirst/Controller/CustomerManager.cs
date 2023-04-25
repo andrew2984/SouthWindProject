@@ -4,8 +4,10 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SouthWindProject.Model;
+using SouthWindProject.View;
 
-namespace SouthWindProject
+namespace SouthWindProject.Controller
 {
     public static class CustomerManager
     {
@@ -18,9 +20,9 @@ namespace SouthWindProject
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
             }
-            
+
         }
-        
+
 
         public static void DeleteEntry(string customerId)
         {
@@ -33,13 +35,13 @@ namespace SouthWindProject
         }
         public static List<Customer> ReturnListOfCustomers()
         {
-            using(db)
+            using (db)
             {
                 return db.Customers.ToList();
-                
+
             }
 
-           
+
         }
 
         public static void Update(ValueTuple<string, string, string, string, string, List<Order>> tuple)
@@ -53,5 +55,7 @@ namespace SouthWindProject
             db.Customers.Update(customer);
             db.SaveChanges();
         }
+
+
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SouthWindProject
+namespace SouthWindProject.Model
 {
     public partial class Order
     {

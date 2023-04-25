@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SouthWindProject
+namespace SouthWindProject.Model
 {
     public partial class Customer
     {
@@ -18,7 +18,7 @@ namespace SouthWindProject
         public string City { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-   
+
         public virtual ICollection<Order> Orders { get; set; }
     }
 }
