@@ -47,9 +47,6 @@ namespace SouthWindProject.Controller
                 db.Customers.Update(customer);
                 db.SaveChanges();
             }
-            foreach (var item in customer.Orders) Console.WriteLine($"HEEEEEEERE: {item.OrderId}");
         }
-
-
     }
 }

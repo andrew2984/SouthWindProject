@@ -1,12 +1,7 @@
 ﻿using SouthWindProject.Model;
-using SouthWindProject.Model;
-using SouthWindProject.View;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SouthWindProject.Controller;
 
@@ -67,7 +62,6 @@ public class ViewController
             else failCount++;
         }
         Console.WriteLine($"{failCount} failed");
-        Console.WriteLine($"Final count: {orders.Count}");
         CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders});
     }
 
