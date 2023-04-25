@@ -62,7 +62,7 @@ public class ViewController
                 orders.Append(db.Orders.Where(o => o.OrderId == orderId).First());
             }
         }
-        CustomerManager.Update((tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4, tuple.Item5, orders));
+        CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders});
     }
 
     public static void ReadCustomers()

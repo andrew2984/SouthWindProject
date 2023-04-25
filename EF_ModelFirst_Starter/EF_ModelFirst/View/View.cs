@@ -84,11 +84,19 @@ public class View
     {
         foreach (var item in list)
         {
+            Line();
             Console.WriteLine($"ID: {item.CustomerId}\n   Name: {item.ContactName}\n   Address: {item.City} {item.PostalCode} {item.Country}\n   Orders:");
             foreach (var item2 in item.Orders)
             {
                 Console.WriteLine($"      {item2.OrderId}");
             }
+
         }
+        Line();
+    }
+
+    public static void Goodbye()
+    {
+        Console.WriteLine("Thanks for using me!\nGoodbye!");
     }
 }
