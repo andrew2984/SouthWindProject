@@ -20,5 +20,10 @@ namespace SouthWindTests
             }
 
         }
+
+        public void WhenCustomerUpdated_ThenCustomerUpdated_ReturnNewChanges()
+        {
+            var testCust = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "UK", CustomerId = "JACOB" }
+        }
     }
 }
