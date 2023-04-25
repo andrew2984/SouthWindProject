@@ -57,7 +57,7 @@ public class View
 
         var names = name.Split(' ');
         string id = "";
-        if (names)
+        //if (names)
 
     }
 }
