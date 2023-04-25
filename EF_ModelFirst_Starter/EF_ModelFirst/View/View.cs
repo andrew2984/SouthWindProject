@@ -54,6 +54,23 @@ public class View
         var names = name.Split(' ');
         string id = "";
 
+        if (names[0].Length < 5)
+        {
+            if (names.Length == 1 || names[0].Length < 4)
+            {
+                id = names[0];
+                for (int i = names[0].Length; i < 5; i++)
+                {
+                    id += 'A';
+                }
+            }
+
+        }
+        else id = names[0].Substring(0, 4) + names[1][0];
+
+        id = id.ToUpper();
+        var newCustomer = new Customer() { ContactName = name, City = city, PostalCode = postalCode, Country = country, CustomerId = id };
+        CustomerManager.CreateCustomer(newCustomer);
 
     }
 }
