@@ -1,5 +1,4 @@
 ﻿using SouthWindProject.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,13 +41,17 @@ namespace SouthWindProject.Controller
 
         public static void Update(Customer updatedCustomerInfo)
         {
-            var oldInfo = db.Customers.Single(e => e.CustomerId == updatedCustomerInfo.CustomerId);
-            oldInfo.City = updatedCustomerInfo.City;
-            oldInfo.ContactName = updatedCustomerInfo.ContactName;
-            oldInfo.Country = updatedCustomerInfo.Country;
-            oldInfo.PostalCode = updatedCustomerInfo.PostalCode;
-            oldInfo.Orders = updatedCustomerInfo.Orders;
-            db.SaveChanges();
+            using (db)
+            {
+                var oldInfo = db.Customers.Single(e => e.CustomerId == updatedCustomerInfo.CustomerId);
+                oldInfo.City = updatedCustomerInfo.City;
+                oldInfo.ContactName = updatedCustomerInfo.ContactName;
+                oldInfo.Country = updatedCustomerInfo.Country;
+                oldInfo.PostalCode = updatedCustomerInfo.PostalCode;
+                oldInfo.Orders = updatedCustomerInfo.Orders;
+                db.SaveChanges();
+            }
+
         }
 
 

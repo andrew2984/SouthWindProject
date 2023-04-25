@@ -1,9 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SouthWindProject.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using SouthWindProject.Model;
-using SouthWindProject.View;
 
 namespace SouthWindProject.Controller;
 
