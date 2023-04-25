@@ -92,7 +92,6 @@ public class View
             }
 
         }
-        Line();
     }
 
     public static void Goodbye()

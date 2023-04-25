@@ -33,7 +33,7 @@ public class ViewController
                         CreateCustomer();
                         break;
                     case 2:
-                        ReadCustomers();
+                        View.View.PrintRead(ReadCustomers());
                         break;
                     case 3:
                         View.View.UpdateInput(db);
@@ -65,9 +65,9 @@ public class ViewController
         CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders});
     }
 
-    public static void ReadCustomers()
+    public static List<Customer> ReadCustomers()
     {
-        var list = CustomerManager.ReturnListOfCustomers();
+        return CustomerManager.ReturnListOfCustomers();
     }
 
     public static void CreateCustomer()
