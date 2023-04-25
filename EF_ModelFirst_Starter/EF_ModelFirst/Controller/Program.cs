@@ -16,7 +16,7 @@ class Program
             //Seed(db);
             //Customer c = new Customer() { ContactName = "Andrew Ma", City = "Liverpool", PostalCode = "PP0 7AD", Country = "UK", CustomerId = "ANDRM" };
             //CustomerManager.CreateCustomer(c);
-
+            ViewController.CreateCustomer();
         }
     }
 

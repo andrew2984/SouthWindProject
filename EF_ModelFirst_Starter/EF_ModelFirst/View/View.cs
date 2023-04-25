@@ -44,7 +44,7 @@ public class View
         CustomerManager.Update((customerId, contactName, city, postalCode, country, orders));
     }
 
-    public void CreateCustomer()
+    public (string name, string city, string postalCode, string country) AskForCustomerInfo()
     {
         Console.WriteLine("Enter Contact Name: ");
         string name = Console.ReadLine();
@@ -53,27 +53,28 @@ public class View
         Console.WriteLine("Enter PostalCode: ");
         string postalCode = Console.ReadLine();
         Console.WriteLine("Enter Country: ");
-        string country = Console.ReadLine();
+        string country = Console.ReadLine(); 
+        return (name, city, postalCode, country);  
 
-        var names = name.Split(' ');
-        string id = "";
-        if (names[0].Length < 5)
-        {
-            if (names.Length == 1 || names[0].Length < 4)
-            {
-                id = names[0];
-                for (int i = names[0].Length; i < 5; i++)
-                {
-                    id += 'A';
-                }
-            }
+        //var names = name.Split(' ');
+        //string id = "";
+        //if (names[0].Length < 5)
+        //{
+        //    if (names.Length == 1 || names[0].Length < 4)
+        //    {
+        //        id = names[0];
+        //        for (int i = names[0].Length; i < 5; i++)
+        //        {
+        //            id += 'A';
+        //        }
+        //    }
 
-        }
-        else id = names[0].Substring(0, 4) + names[1][0];
+        //}
+        //else id = names[0].Substring(0, 4) + names[1][0];
 
-        id = id.ToUpper();
-        var newCustomer = new Customer() { ContactName = name, City = city, PostalCode = postalCode, Country = country, CustomerId = id };
-        CustomerManager.CreateCustomer(newCustomer);
+        //id = id.ToUpper();
+        //var newCustomer = new Customer() { ContactName = name, City = city, PostalCode = postalCode, Country = country, CustomerId = id };
+        //CustomerManager.CreateCustomer(newCustomer);
 
     }
 }
