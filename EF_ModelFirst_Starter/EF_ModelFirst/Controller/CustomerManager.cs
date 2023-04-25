@@ -37,7 +37,7 @@ namespace SouthWindProject.Controller
 
         }
 
-        public static void Update(string customerId, string customerName, string city, string postCode, string country, List<Order> orders = null)
+        public static void Update(Customer customer)
         {
             using (SouthwindContext db = new SouthwindContext())
             {
