@@ -8,15 +8,28 @@ namespace SouthWindProject.View;
 
 public class View
 {
-    static void UpdateInput(SouthwindContext db)
+    public static void Greeting()
     {
-        Console.WriteLine("CustomerID of Customer to update?");
-        string customerId = Console.ReadLine();
-        while (!db.Customers.Select(c => c.CustomerId).Contains(customerId))
-        {
-            Console.WriteLine("Invalid ID");
-            customerId = Console.ReadLine();
-        }
+        Line();
+        Console.WriteLine("Welcome to the SouthWind database manager");
+
+    }
+
+    public static void Menu()
+    {
+        Line();
+        Console.WriteLine("Would would you like to do?");
+        Console.WriteLine("1. Create");
+        Console.WriteLine("2. Read");
+        Console.WriteLine("3. Update");
+        Console.WriteLine("4. Delete");
+        Console.WriteLine("5. Exit");
+        Line();
+    }
+
+    public static void UpdateInput(SouthwindContext db)
+    {
+        string customerId = GetID(db, "update");
         Console.WriteLine("Name?");
         string contactName = Console.ReadLine();
         Console.WriteLine("City?");
@@ -28,16 +41,7 @@ public class View
         Console.WriteLine("Please list the Order IDs separated by a space.");
         string ordersString = Console.ReadLine();
 
-        var ordersSplit = ordersString.Split(" ");
-        var orders = new List<Order>();
-        foreach (var item in ordersSplit)
-        {
-            if (int.TryParse(item, out int orderId) && db.Orders.Select(o => o.OrderId).Contains(orderId))
-            {
-                orders.Append(db.Orders.Where(o => o.OrderId == orderId).First());
-            }
-        }
-        CustomerManager.Update((customerId, contactName, city, postalCode, country, orders));
+        ViewController.UpdateLogic(db, (customerId, contactName, city, postalCode, country, ordersString));
     }
 
     public void CreateCustomer()
@@ -72,5 +76,40 @@ public class View
         var newCustomer = new Customer() { ContactName = name, City = city, PostalCode = postalCode, Country = country, CustomerId = id };
         CustomerManager.CreateCustomer(newCustomer);
 
+    }
+
+    public static void Line()
+    {
+        Console.WriteLine("----------------------------------------------------");
+    }
+
+    public static void MenuWrong()
+    {
+        Line();
+        Console.WriteLine("Invalid input. Please enter an integer with a corresponding selection.");
+    }
+
+    public static string GetID(SouthwindContext db, string edit)
+    {
+        Console.WriteLine($"CustomerID of Customer to {edit}?");
+        string customerId = Console.ReadLine();
+        while (!db.Customers.Select(c => c.CustomerId).Contains(customerId))
+        {
+            Console.WriteLine("Invalid ID");
+            customerId = Console.ReadLine();
+        }
+        return customerId;
+    }
+
+    public static void PrintRead(List<Customer> list)
+    {
+        foreach (var item in list)
+        {
+            Console.WriteLine($"ID: {item.CustomerId}\n   Name: {item.ContactName}\n   Address: {item.City} {item.PostalCode} {item.Country}\n   Orders:");
+            foreach (var item2 in item.Orders)
+            {
+                Console.WriteLine($"      {item2.OrderId}");
+            }
+        }
     }
 }
