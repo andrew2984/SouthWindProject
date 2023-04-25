@@ -42,8 +42,12 @@ namespace SouthWindProject.Controller
             using (SouthwindContext db = new SouthwindContext())
             {
                 var upCustomer = db.Customers.Where(o => o.CustomerId == customer.CustomerId).First();
-
-                db.Customers.Update(customer);
+                upCustomer.City = customer.City;
+                upCustomer.ContactName = customer.ContactName;
+                upCustomer.Country = customer.Country;
+                upCustomer.PostalCode = customer.PostalCode;
+                upCustomer.Orders = customer.Orders;
+                db.Customers.Update(upCustomer);
                 db.SaveChanges();
             }
         }

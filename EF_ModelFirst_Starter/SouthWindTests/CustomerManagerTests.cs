@@ -6,12 +6,11 @@ namespace SouthWindTests
 {
     public class Tests
     {
-        private Customer _testCustomer;
 
         [SetUp]
         public void SetUp()
         {
-            _testCustomer = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
+            Customer _testCustomer = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
             using (var _db = new SouthwindContext())
             {
                 _db.Customers.Add(_testCustomer);
@@ -96,7 +95,7 @@ namespace SouthWindTests
         [Test]
         public void WhenReadingACustomerReturnCorrectData()
         {
-            var actualResult = CustomerManager.ReturnListOfCustomers();
+            List<Customer> actualResult = CustomerManager.ReturnListOfCustomers();
             List<Customer> expectedResult;
             using (SouthwindContext db = new SouthwindContext())
             {
@@ -112,7 +111,7 @@ namespace SouthWindTests
         [Test]
         public void WhenCustomerUpdated_ThenCustomerUpdated_ReturnNewChanges()
         {
-            var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
+            Customer testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
             CustomerManager.Update(testCustUpdate);
             string actualResult = "";
             string expectedResult = "Test subject UPDATE";
