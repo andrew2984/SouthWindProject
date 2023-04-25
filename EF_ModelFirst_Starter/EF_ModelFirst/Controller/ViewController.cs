@@ -50,14 +50,19 @@ public class ViewController
     {
         var ordersSplit = tuple.Item6.Split(" ");
         var orders = new List<Order>();
+        int failCount = 0;
         foreach (var item in ordersSplit)
         {
             if (int.TryParse(item, out int orderId) && db.Orders.Select(o => o.OrderId).Contains(orderId))
             {
-                orders.Append(db.Orders.Where(o => o.OrderId == orderId).First());
+                orders.Add(db.Orders.Where(o => o.OrderId == orderId).First());
+                Console.WriteLine("Added something");
+                Console.WriteLine($"{orders.Count}");
             }
+            else failCount++;
         }
-        CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders });
+        Console.WriteLine($"{failCount} failed");
+        CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders});
     }
 
     public static List<Customer> ReadCustomers()

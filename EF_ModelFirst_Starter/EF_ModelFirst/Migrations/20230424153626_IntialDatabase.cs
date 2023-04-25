@@ -18,7 +18,8 @@ namespace SouthWindProject.Migrations
                     CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ContactName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Orders = table.Column<string>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {

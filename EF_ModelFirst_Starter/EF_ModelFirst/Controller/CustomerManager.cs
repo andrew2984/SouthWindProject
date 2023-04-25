@@ -1,4 +1,5 @@
 ﻿using SouthWindProject.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,11 +7,9 @@ namespace SouthWindProject.Controller
 {
     public static class CustomerManager
     {
-        private static SouthwindContext db = new SouthwindContext();
-
         public static void CreateCustomer(Customer newCustomer)
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
@@ -21,7 +20,7 @@ namespace SouthWindProject.Controller
 
         public static void DeleteEntry(string customerId)
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
                 var customer = db.Customers.Find(customerId);
                 db.Customers.Remove(customer);
@@ -30,7 +29,7 @@ namespace SouthWindProject.Controller
         }
         public static List<Customer> ReturnListOfCustomers()
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
                 return db.Customers.ToList();
 
@@ -39,21 +38,15 @@ namespace SouthWindProject.Controller
 
         }
 
-        public static void Update(Customer updatedCustomerInfo)
+        public static void Update(Customer customer)
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
-                var oldInfo = db.Customers.Single(e => e.CustomerId == updatedCustomerInfo.CustomerId);
-                oldInfo.City = updatedCustomerInfo.City;
-                oldInfo.ContactName = updatedCustomerInfo.ContactName;
-                oldInfo.Country = updatedCustomerInfo.Country;
-                oldInfo.PostalCode = updatedCustomerInfo.PostalCode;
-                oldInfo.Orders = updatedCustomerInfo.Orders;
+                var upCustomer = db.Customers.Where(o => o.CustomerId == customer.CustomerId).First();
+                
+                db.Customers.Update(customer);
                 db.SaveChanges();
             }
-
         }
-
-
     }
 }
