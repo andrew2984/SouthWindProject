@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SouthWindProject.Model
+﻿namespace SouthWindProject.Model
 {
     public partial class Order
     {

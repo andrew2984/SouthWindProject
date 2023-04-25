@@ -62,7 +62,7 @@ public class ViewController
             else failCount++;
         }
         Console.WriteLine($"{failCount} failed");
-        CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders});
+        CustomerManager.Update(new Customer() { CustomerId = tuple.Item1, ContactName = tuple.Item2, City = tuple.Item3, PostalCode = tuple.Item4, Country = tuple.Item5, Orders = orders });
     }
 
     public static List<Customer> ReadCustomers()

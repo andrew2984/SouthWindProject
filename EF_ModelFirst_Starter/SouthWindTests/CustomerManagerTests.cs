@@ -6,27 +6,28 @@ namespace SouthWindTests
 {
     public class Tests
     {
-        private SouthwindContext _db;
         private Customer _testCustomer;
 
         [SetUp]
         public void SetUp()
         {
             _testCustomer = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
-            _db = new SouthwindContext();
-            _db.Database.OpenConnection();
-            _db.Customers.Add(_testCustomer);
-            _db.SaveChanges();
-            _db.Database.CloseConnection();
+            using (var _db = new SouthwindContext())
+            {
+                _db.Customers.Add(_testCustomer);
+                _db.SaveChanges();
+            }
         }
 
         [TearDown]
         public void TearDown()
         {
-            _db.Database.OpenConnection();
-            _db.Customers.Remove(_testCustomer);
-            _db.SaveChanges();
-            _db.Database.CloseConnection();
+            using (var _db = new SouthwindContext())
+            {
+                var temp = _db.Customers.Where(e => e.CustomerId == "TTTTT").First();
+                _db.Remove(temp);
+                _db.SaveChanges();
+            }
         }
 
         [Ignore("primary key conflict ignore for now")]
@@ -113,12 +114,13 @@ namespace SouthWindTests
         {
             var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
             CustomerManager.Update(testCustUpdate);
+            string actualResult = "";
+            string expectedResult = "Test subject UPDATE";
             using (SouthwindContext db = new SouthwindContext())
             {
-                var actualResult = db.Customers.Where(e => e.CustomerId == "TTTTT").First().ContactName;
-                var expectedResult = "Test subject UPDATE";
-                Assert.That(actualResult, Is.EqualTo(expectedResult));
+                actualResult = db.Customers.Where(e => e.CustomerId == testCustUpdate.CustomerId).First().ContactName;
             }
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
 
         }
 
