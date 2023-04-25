@@ -37,12 +37,16 @@ namespace SouthWindProject.Controller
 
         }
 
-        public static void Update(Customer customer)
+        public static void Update(string customerId, string customerName, string city, string postCode, string country, List<Order> orders = null)
         {
             using (SouthwindContext db = new SouthwindContext())
             {
-                var upCustomer = db.Customers.Where(o => o.CustomerId == customer.CustomerId).First();
-
+                var customer = db.Customers.Where(o => o.CustomerId == customerId).First();
+                customer.ContactName = customerName;
+                customer.City = city;
+                customer.PostalCode = postCode;
+                customer.Country = country;
+                customer.Orders = orders;
                 db.Customers.Update(customer);
                 db.SaveChanges();
             }

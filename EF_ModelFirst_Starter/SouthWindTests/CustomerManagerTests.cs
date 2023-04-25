@@ -113,7 +113,7 @@ namespace SouthWindTests
         public void WhenCustomerUpdated_ThenCustomerUpdated_ReturnNewChanges()
         {
             var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
-            CustomerManager.Update(testCustUpdate);
+            CustomerManager.Update("TTTTT", "Test subject UPDATE", "Test city", "TTT", "TS");
             string actualResult = "";
             string expectedResult = "Test subject UPDATE";
             using (SouthwindContext db = new SouthwindContext())
