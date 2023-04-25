@@ -1,5 +1,4 @@
 ﻿using SouthWindProject.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -43,7 +42,7 @@ namespace SouthWindProject.Controller
             using (SouthwindContext db = new SouthwindContext())
             {
                 var upCustomer = db.Customers.Where(o => o.CustomerId == customer.CustomerId).First();
-                
+
                 db.Customers.Update(customer);
                 db.SaveChanges();
             }
