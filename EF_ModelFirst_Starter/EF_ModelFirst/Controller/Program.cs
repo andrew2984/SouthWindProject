@@ -14,6 +14,7 @@ class Program
         using (var db = new SouthwindContext())
         {
             //Seed(db);
+            foreach (var item in db.Orders) Console.WriteLine(item.OrderId);
             ViewController.Start(db);
             //Customer c = new Customer() { ContactName = "Andrew Ma", City = "Liverpool", PostalCode = "PP0 7AD", Country = "UK", CustomerId = "ANDRM" };
             //CustomerManager.CreateCustomer(c);

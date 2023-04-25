@@ -7,11 +7,9 @@ namespace SouthWindProject.Controller
 {
     public static class CustomerManager
     {
-        private static SouthwindContext db = new SouthwindContext();
-
         public static void CreateCustomer(Customer newCustomer)
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
                 db.Customers.Add(newCustomer);
                 db.SaveChanges();
@@ -22,7 +20,7 @@ namespace SouthWindProject.Controller
 
         public static void DeleteEntry(string customerId)
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
                 var customer = db.Customers.Find(customerId);
                 db.Customers.Remove(customer);
@@ -31,7 +29,7 @@ namespace SouthWindProject.Controller
         }
         public static List<Customer> ReturnListOfCustomers()
         {
-            using (db)
+            using (SouthwindContext db = new SouthwindContext())
             {
                 return db.Customers.ToList();
 
@@ -40,12 +38,16 @@ namespace SouthWindProject.Controller
 
         }
 
-        public static void Update(Customer updatedCustomerInfo)
+        public static void Update(Customer customer)
         {
-            var oldCustomerInfo = db.Customers.Where(o => o.CustomerId == updatedCustomerInfo.CustomerId).First();
-            oldCustomerInfo = updatedCustomerInfo;
-            db.Customers.Update(oldCustomerInfo);
-            db.SaveChanges();
+            using (SouthwindContext db = new SouthwindContext())
+            {
+                var upCustomer = db.Customers.Where(o => o.CustomerId == customer.CustomerId).First();
+                
+                db.Customers.Update(customer);
+                db.SaveChanges();
+            }
+            foreach (var item in customer.Orders) Console.WriteLine($"HEEEEEEERE: {item.OrderId}");
         }
 
 

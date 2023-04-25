@@ -85,11 +85,19 @@ public class View
         foreach (var item in list)
         {
             Line();
-            Console.WriteLine($"ID: {item.CustomerId}\n   Name: {item.ContactName}\n   Address: {item.City} {item.PostalCode} {item.Country}\n   Orders:");
+            Console.WriteLine($"ID: {item.CustomerId}\n   Name: {item.ContactName}\n   Address: {item.City}, {item.PostalCode}, {item.Country}\n   Orders:");
+            Console.WriteLine($"Number of Orders: {item.Orders.Count}");
             foreach (var item2 in item.Orders)
             {
                 Console.WriteLine($"      {item2.OrderId}");
+                using (SouthwindContext db = new SouthwindContext())
+                {
+                    Console.WriteLine($"{db.Orders.Select(o => o.OrderId)}");
+
+
+                }
             }
+
 
         }
     }
