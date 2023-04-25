@@ -53,8 +53,8 @@ public class View
         Console.WriteLine("Enter PostalCode: ");
         string postalCode = Console.ReadLine();
         Console.WriteLine("Enter Country: ");
-        string country = Console.ReadLine(); 
-        return (name, city, postalCode, country);  
+        string country = Console.ReadLine();
+        return (name, city, postalCode, country);
     }
 
     public static void Line()
