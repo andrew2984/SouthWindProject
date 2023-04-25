@@ -50,6 +50,8 @@ namespace SouthWindProject
             customer.PostalCode = tuple.Item4;
             customer.Country = tuple.Item5;
             customer.Orders = tuple.Item6;
+            db.Customers.Update(customer);
+            db.SaveChanges();
         }
     }
 }
