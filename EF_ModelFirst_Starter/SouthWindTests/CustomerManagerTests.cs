@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SouthWindProject.Controller;
 using SouthWindProject.Model;
 
@@ -5,6 +6,28 @@ namespace SouthWindTests
 {
     public class Tests
     {
+        private SouthwindContext _db;
+        private Customer _testCustomer;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _testCustomer = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
+            _db = new SouthwindContext();
+            _db.Database.OpenConnection();
+            _db.Customers.Add(_testCustomer);
+            _db.SaveChanges();
+            _db.Database.CloseConnection();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _db.Database.OpenConnection();
+            _db.Customers.Remove(_testCustomer);
+            _db.SaveChanges();
+            _db.Database.CloseConnection();
+        }
 
         [Ignore("primary key conflict ignore for now")]
         [Test]
@@ -28,7 +51,7 @@ namespace SouthWindTests
 
         [Ignore("primary key ignore for now")]
 
-        
+
 
         [Test]
         public void ReturnListOfCustomersCorrectly()
@@ -69,37 +92,32 @@ namespace SouthWindTests
         }
 
 
-        [Ignore("setup required")]
         [Test]
         public void WhenReadingACustomerReturnCorrectData()
         {
+            var actualResult = CustomerManager.ReturnListOfCustomers();
+            List<Customer> expectedResult;
             using (SouthwindContext db = new SouthwindContext())
             {
-               
-                Assert.That(db.Customers.ToList(), Is.EqualTo(CustomerManager.ReturnListOfCustomers()));
+                expectedResult = db.Customers.ToList();
             }
+            Assert.That(actualResult, Is.EqualTo(expectedResult));
 
         }
 
 
 
 
-        [Ignore("Needs setup to function")]
         [Test]
         public void WhenCustomerUpdated_ThenCustomerUpdated_ReturnNewChanges()
         {
+            var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTT" };
+            CustomerManager.Update(testCustUpdate);
             using (SouthwindContext db = new SouthwindContext())
             {
-                var testCust = new Customer() { ContactName = "Test subject", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTJ" };
-                db.Customers.Add(testCust);
-                db.SaveChanges();
-                var testCustUpdate = new Customer() { ContactName = "Test subject UPDATE", City = "Test city", PostalCode = "TTT", Country = "TS", CustomerId = "TTTTJ" };
-                CustomerManager.Update(testCustUpdate);
-                Thread.Sleep(2);
-                var actualResult = db.Customers.Where(e => e.CustomerId == "TTTTJ").First().ContactName;
+                var actualResult = db.Customers.Where(e => e.CustomerId == "TTTTT").First().ContactName;
                 var expectedResult = "Test subject UPDATE";
                 Assert.That(actualResult, Is.EqualTo(expectedResult));
-
             }
 
         }
